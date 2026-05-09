@@ -1,16 +1,15 @@
-@import "tailwindcss";
-
-@theme {
-  --font-family-sans: DMSans, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face {
-  font-family: 'DMSans';
-  src: url('/fonts/DMSans.woff2') format('woff2');
-  font-weight: normal;
+  font-family: "DMSans";
+  src: url("/fonts/DMSans.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
 
 html,
 body,
