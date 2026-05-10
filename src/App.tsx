@@ -3,7 +3,7 @@ import AudioPlayer from "./components/AudioPlayer";
 import SettingsPanel from "./components/SettingsPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
 import { useAudioProcessor } from "./hooks/useAudioProcessor";
-import { AudioWaveform, Music2 } from "lucide-react";
+import { Music2 } from "lucide-react";
 
 export default function App() {
   const {

@@ -6,7 +6,7 @@ import {
   TrafficCone,
   X,
 } from "lucide-react";
-import { type RefObject } from "react";
+import { useRef, type RefObject } from "react";
 
 interface Props {
   file: File;
@@ -31,6 +31,20 @@ export default function AudioPlayer({
   onEnhance,
   enhancedAudioRef,
 }: Props) {
+  const originalAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  function pauseOtherAudio(source: "original" | "enhanced") {
+    if (source === "original") {
+      if (enhancedAudioRef.current && !enhancedAudioRef.current.paused) {
+        enhancedAudioRef.current.pause();
+      }
+    } else {
+      if (originalAudioRef.current && !originalAudioRef.current.paused) {
+        originalAudioRef.current.pause();
+      }
+    }
+  }
+
   return (
     <div className="space-y-4">
       {/* File header */}
@@ -63,9 +77,11 @@ export default function AudioPlayer({
             </span>
           </div>
           <audio
+            ref={originalAudioRef}
             className="w-full h-8"
             controls
             src={originalUrl ?? undefined}
+            onPlay={() => pauseOtherAudio("original")}
           />
         </div>
 
@@ -98,6 +114,7 @@ export default function AudioPlayer({
             className="w-full h-8"
             controls
             src={enhancedUrl ?? undefined}
+            onPlay={() => pauseOtherAudio("enhanced")}
           />
         </div>
       </div>
