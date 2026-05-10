@@ -15,6 +15,7 @@ export default function App() {
     analysis,
     settings,
     updateSetting,
+    resetSettings,
     pickFile,
     enhance,
     enhancedAudioRef,
@@ -97,7 +98,7 @@ export default function App() {
 
           {/* Side panels */}
           <div className="flex flex-col gap-4">
-            <SettingsPanel settings={settings} update={updateSetting} />
+            <SettingsPanel settings={settings} update={updateSetting} onReset={resetSettings} />
             <AnalysisPanel analysis={analysis} />
           </div>
         </div>

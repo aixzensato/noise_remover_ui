@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type AnalyzeResponse = {
   sr: number;
@@ -23,9 +23,100 @@ export type Settings = {
   outFormat: "wav" | "flac";
 };
 
+const DEFAULT_SETTINGS: Settings = {
+  strength: 0.92,
+  residualGate: 0.55,
+  hfBoostDb: 10,
+  noisePercentile: 12,
+  outFormat: "wav",
+};
+
 function clamp(v: number, lo: number, hi: number) {
   return Math.max(lo, Math.min(hi, v));
 }
+
+function loadSettingsFromStorage(): Settings {
+  try {
+    const stored = localStorage.getItem("audioProcessorSettings");
+    return stored ? JSON.parse(stored) : DEFAULT_SETTINGS;
+  } catch {
+    return DEFAULT_SETTINGS;
+  }
+}
+
+async function saveFileToIndexedDB(file: File): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("audioProcessorDB", 1);
+
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const db = request.result;
+      const transaction = db.transaction(["files"], "readwrite");
+      const store = transaction.objectStore("files");
+      store.put({ id: "uploadedFile", file, name: file.name, size: file.size });
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("files")) {
+        db.createObjectStore("files", { keyPath: "id" });
+      }
+    };
+  });
+}
+
+async function loadFileFromIndexedDB(): Promise<File | null> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("audioProcessorDB", 1);
+
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const db = request.result;
+      const transaction = db.transaction(["files"], "readonly");
+      const store = transaction.objectStore("files");
+      const fileRequest = store.get("uploadedFile");
+
+      fileRequest.onsuccess = () => {
+        const result = fileRequest.result;
+        resolve(result ? result.file : null);
+      };
+      fileRequest.onerror = () => reject(fileRequest.error);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("files")) {
+        db.createObjectStore("files", { keyPath: "id" });
+      }
+    };
+  });
+}
+
+async function deleteFileFromIndexedDB(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("audioProcessorDB", 1);
+
+    request.onerror = () => reject(request.error);
+    request.onsuccess = () => {
+      const db = request.result;
+      const transaction = db.transaction(["files"], "readwrite");
+      const store = transaction.objectStore("files");
+      store.delete("uploadedFile");
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+    };
+
+    request.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("files")) {
+        db.createObjectStore("files", { keyPath: "id" });
+      }
+    };
+  });
+}
+
 
 export function useAudioProcessor() {
   const [file, setFile] = useState<File | null>(null);
@@ -34,17 +125,30 @@ export function useAudioProcessor() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
-  const [settings, setSettings] = useState<Settings>({
-    strength: 0.92,
-    residualGate: 0.55,
-    hfBoostDb: 10,
-    noisePercentile: 12,
-    outFormat: "wav",
-  });
+  const [settings, setSettings] = useState<Settings>(loadSettingsFromStorage);
 
   const enhancedAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const apiBase = useMemo(() => "http://127.0.0.1:8000", []);
+
+  // Persist settings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("audioProcessorSettings", JSON.stringify(settings));
+  }, [settings]);
+
+  // Load file from IndexedDB on mount
+  useEffect(() => {
+    loadFileFromIndexedDB()
+      .then((storedFile) => {
+        if (storedFile) {
+          setFile(storedFile);
+          setOriginalUrl(URL.createObjectURL(storedFile));
+        }
+      })
+      .catch(() => {
+        // Silently fail if IndexedDB is not available
+      });
+  }, []);
 
   const updateSetting = useCallback(
     <K extends keyof Settings>(key: K, value: Settings[K]) => {
@@ -52,6 +156,10 @@ export function useAudioProcessor() {
     },
     [],
   );
+
+  const resetSettings = useCallback(() => {
+    setSettings(DEFAULT_SETTINGS);
+  }, []);
 
   const pickFile = useCallback(
     async (f: File | null) => {
@@ -67,7 +175,22 @@ export function useAudioProcessor() {
         return f ? URL.createObjectURL(f) : null;
       });
 
-      if (!f) return;
+      if (!f) {
+        // Clear file from IndexedDB
+        try {
+          await deleteFileFromIndexedDB();
+        } catch {
+          // Silently fail if IndexedDB is not available
+        }
+        return;
+      }
+
+      // Save file to IndexedDB
+      try {
+        await saveFileToIndexedDB(f);
+      } catch {
+        // Silently fail if IndexedDB is not available
+      }
 
       try {
         const fd = new FormData();
@@ -143,6 +266,7 @@ export function useAudioProcessor() {
     analysis,
     settings,
     updateSetting,
+    resetSettings,
     pickFile,
     enhance,
     enhancedAudioRef,

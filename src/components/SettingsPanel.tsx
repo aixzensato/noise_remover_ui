@@ -1,4 +1,4 @@
-import { Settings2 } from "lucide-react";
+import { Settings2, RotateCcw } from "lucide-react";
 import { type Settings } from "../hooks/useAudioProcessor";
 
 interface SliderProps {
@@ -51,15 +51,27 @@ function Slider({
 interface Props {
   settings: Settings;
   update: <K extends keyof Settings>(key: K, v: Settings[K]) => void;
+  onReset: () => void;
 }
 
-export default function SettingsPanel({ settings, update }: Props) {
+export default function SettingsPanel({ settings, update, onReset }: Props) {
   return (
     <div className="bg-zinc-900/50 border border-white/[0.06] rounded-2xl p-5 space-y-5">
       {/* Panel header */}
-      <div className="flex items-center gap-2 text-zinc-500">
-        <Settings2 />
-        <h1 className="font-medium text-lg">Settings</h1>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 text-zinc-500">
+          <Settings2 />
+          <h1 className="font-medium text-lg">Settings</h1>
+        </div>
+        <button
+          type="button"
+          onClick={onReset}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm font-semibold text-zinc-400 border border-white/[0.08] rounded-lg hover:text-zinc-200 hover:bg-white/5 transition-colors"
+          title="Reset to default settings"
+        >
+          <RotateCcw size={16} />
+          Reset
+        </button>
       </div>
 
       <div className="space-y-5">
