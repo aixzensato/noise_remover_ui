@@ -1,3 +1,11 @@
+import {
+  ArrowDownToLine,
+  LoaderCircle,
+  Mic,
+  OctagonAlert,
+  TrafficCone,
+  X,
+} from "lucide-react";
 import { type RefObject } from "react";
 
 interface Props {
@@ -28,38 +36,29 @@ export default function AudioPlayer({
       {/* File header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="w-2 h-2 rounded-full bg-violet-500 flex-shrink-0" />
-          <span className="text-sm font-semibold text-zinc-200 truncate">
+          <TrafficCone size={20} className="text-orange-600" />
+          <span className="font-medium text-zinc-200 truncate">
             {file.name}
           </span>
-          <span className="text-xs text-zinc-500 font-mono flex-shrink-0">
+          <span className="text-xs bg-white/20 px-1 rounded-md text-zinc-300">
             {(file.size / (1024 * 1024)).toFixed(2)} MB
           </span>
         </div>
         <button
           onClick={onClear}
-          className="flex items-center gap-1.5 text-xs text-zinc-400 border border-white/[0.07] rounded-lg px-2.5 py-1.5 hover:text-zinc-200 hover:bg-white/5 transition-colors flex-shrink-0"
+          className="flex items-center text-xs text-zinc-400 border border-white/10 rounded-lg px-2.5 py-1.5 hover:text-zinc-200 hover:bg-white/5"
         >
-          <svg
-            width="11"
-            height="11"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-          Clear
+          <X size={16} />
+          <p className="text-sm font-medium">Clear</p>
         </button>
       </div>
 
       {/* Players */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-rows-2 gap-4">
         <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
-            <span className="font-mono text-[10px] tracking-widest uppercase text-zinc-500">
+            <span className="w-3 h-3 animation-pulse rounded-full bg-blue-500" />
+            <span className="text-sm font-semibold uppercase text-zinc-500">
               Original
             </span>
           </div>
@@ -72,10 +71,15 @@ export default function AudioPlayer({
 
         <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
           <div className="flex items-center gap-2">
-            <span
-              className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${enhancedUrl ? "bg-emerald-400" : "bg-zinc-600"}`}
-            />
-            <span className="font-mono text-[10px] tracking-widest uppercase text-zinc-500">
+            <span className="relative flex size-3">
+              <span
+                className={`absolute inline-flex h-full w-full animate-ping rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-none"}`}
+              />
+              <span
+                className={`relative inline-flex size-3 rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-zinc-600"}`}
+              />
+            </span>
+            <span className="text-sm font-semibold uppercase text-zinc-500">
               Enhanced
             </span>
             {enhancedUrl && (
@@ -84,17 +88,8 @@ export default function AudioPlayer({
                 href={enhancedUrl}
                 download={`${file.name.replace(/\.[^/.]+$/, "")}_denoised.${outFormat}`}
               >
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-                </svg>
-                Download
+                <ArrowDownToLine size={16} />
+                <p className="font-medium text-sm">Download</p>
               </a>
             )}
           </div>
@@ -110,18 +105,7 @@ export default function AudioPlayer({
       {/* Error */}
       {err && (
         <div className="flex items-start gap-2 bg-red-950/40 border border-red-900/30 rounded-xl px-3.5 py-3 text-sm text-red-300">
-          <svg
-            width="14"
-            height="14"
-            className="flex-shrink-0 mt-0.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 8v4M12 16h.01" />
-          </svg>
+          <OctagonAlert size={20} />
           {err}
         </div>
       )}
@@ -138,24 +122,14 @@ export default function AudioPlayer({
       >
         {busy ? (
           <>
-            <span className="spinner" />
-            Processing audio…
+            <LoaderCircle size={20} className="animate-spin" />
+            <h1 className="font-medium text-base">Processing audio…</h1>
           </>
         ) : (
-          <>
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8" />
-            </svg>
-            Enhance & Remove Noise
-          </>
+          <div className="flex items-center gap-2">
+            <Mic size={20} />
+            <h1 className="font-medium text-base">Enhance & Remove Noise</h1>
+          </div>
         )}
       </button>
     </div>

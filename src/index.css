@@ -17,7 +17,15 @@
 }
 
 @layer base {
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
   body {
+    margin: 0;
     @apply font-sans;
   }
 
@@ -29,16 +37,6 @@
   h6 {
     @apply font-display;
   }
-}
-
-html,
-body,
-#root {
-  height: 100%;
-}
-
-body {
-  margin: 0;
 }
 
 /* ── Range slider (cannot be done in Tailwind) ── */
@@ -78,40 +76,6 @@ input[type='range']::-moz-range-thumb {
   border-radius: 50%;
   background: #f0eff6;
   border: 2px solid #7c5cfc;
-}
-
-/* ── Animations ── */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.4;
-  }
-}
-
-/* ── Utility classes used in components ── */
-.spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  flex-shrink: 0;
-}
-
-.health-dot {
-  animation: pulse 2s infinite;
 }
 
 .bg-grid {

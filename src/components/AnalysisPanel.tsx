@@ -1,3 +1,4 @@
+import { AudioLines, ChartLine } from "lucide-react";
 import { type AnalyzeResponse } from "../hooks/useAudioProcessor";
 
 interface Props {
@@ -36,18 +37,9 @@ export default function AnalysisPanel({ analysis }: Props) {
   return (
     <div className="bg-zinc-900/50 border border-white/[0.06] rounded-2xl p-5 space-y-4">
       {/* Panel header */}
-      <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase text-zinc-500">
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path d="M2 20h20M4 20V10M8 20V4M12 20v-8M16 20V6M20 20v-4" />
-        </svg>
-        Analysis
+      <div className="flex items-center gap-2 text-zinc-500">
+        <ChartLine />
+        <h1 className="font-medium text-lg">Analysis</h1>
       </div>
 
       {analysis ? (
@@ -71,17 +63,8 @@ export default function AnalysisPanel({ analysis }: Props) {
         </div>
       ) : (
         <div className="flex flex-col items-center gap-2.5 py-5 text-zinc-600">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          >
-            <path d="M3 12h4l3-9 4 18 3-9h4" />
-          </svg>
-          <span className="font-mono text-[11px]">
+          <AudioLines size={23} />
+          <span className="text-base font-medium">
             Upload a file to see analysis
           </span>
         </div>

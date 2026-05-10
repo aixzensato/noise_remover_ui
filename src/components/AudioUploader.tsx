@@ -1,3 +1,4 @@
+import { Music } from "lucide-react";
 import { useCallback, useState } from "react";
 
 interface Props {
@@ -43,21 +44,12 @@ export default function AudioUploader({ onFile }: Props) {
       <div
         className={`w-14 h-14 rounded-full flex items-center justify-center border transition-colors duration-200 ${dragging ? "border-violet-500/40 text-violet-400" : "border-white/10 text-zinc-400"}`}
       >
-        <svg
-          width="26"
-          height="26"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-        </svg>
+        <Music />
       </div>
-      <p className="text-sm font-semibold font-display text-zinc-200">
+      <p className="text-lg font-semibold text-zinc-200">
         Drop your audio file here
       </p>
-      <p className="text-xs text-zinc-500 font-mono">
+      <p className="text-sm font-medium text-zinc-500">
         WAV · FLAC · OGG · M4A · MP3 — or click to browse
       </p>
     </label>

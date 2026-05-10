@@ -1,3 +1,4 @@
+import { Settings2 } from "lucide-react";
 import { type Settings } from "../hooks/useAudioProcessor";
 
 interface SliderProps {
@@ -56,19 +57,9 @@ export default function SettingsPanel({ settings, update }: Props) {
   return (
     <div className="bg-zinc-900/50 border border-white/[0.06] rounded-2xl p-5 space-y-5">
       {/* Panel header */}
-      <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase text-zinc-500">
-        <svg
-          width="13"
-          height="13"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <circle cx="12" cy="12" r="3" />
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
-        </svg>
-        Settings
+      <div className="flex items-center gap-2 text-zinc-500">
+        <Settings2 />
+        <h1 className="font-medium text-lg">Settings</h1>
       </div>
 
       <div className="space-y-5">
@@ -136,22 +127,8 @@ export default function SettingsPanel({ settings, update }: Props) {
       </div>
 
       {/* Tip */}
-      <p className="flex items-start gap-1.5 font-mono text-[10px] text-zinc-500 leading-relaxed">
-        <svg
-          width="11"
-          height="11"
-          className="flex-shrink-0 mt-px"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 16v-4M12 8h.01" />
-        </svg>
-        Metallic voice? Lower{" "}
-        <strong className="text-zinc-400 font-medium">Residual gate</strong>{" "}
-        first.
+      <p className="text-sm text-zinc-500">
+        Tip: For best results, use lossless formats like WAV or FLAC as input.
       </p>
     </div>
   );
