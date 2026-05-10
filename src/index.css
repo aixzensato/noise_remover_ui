@@ -3,13 +3,33 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "DMSans";
-  src: url("/fonts/DMSans.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Chillax";
+  src: url("/fonts/Chillax.woff2") format("woff2");
   font-style: normal;
   font-display: swap;
 }
 
+@font-face {
+  font-family: "DMSans";
+  src: url("/fonts/DMSans.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
 
 html,
 body,
