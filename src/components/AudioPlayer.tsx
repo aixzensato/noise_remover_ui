@@ -84,7 +84,7 @@ export default function AudioPlayer({
             </span>
             {enhancedUrl && (
               <a
-                className="ml-auto flex items-center gap-1 text-[10px] font-mono text-violet-400 hover:text-violet-300 transition-colors"
+                className="ml-auto flex items-center gap-1 text-sm text-violet-400 hover:text-violet-300 transition-colors"
                 href={enhancedUrl}
                 download={`${file.name.replace(/\.[^/.]+$/, "")}_denoised.${outFormat}`}
               >

@@ -28,10 +28,10 @@ function Slider({
     <div className="space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-sm font-medium text-zinc-200">{label}</p>
-          <p className="text-[10px] font-mono text-zinc-500 mt-0.5">{hint}</p>
+          <p className="text-base font-medium text-zinc-200">{label}</p>
+          <p className="text-sm font-medium text-zinc-500">{hint}</p>
         </div>
-        <span className="text-xs font-mono text-violet-400 flex-shrink-0 mt-0.5">
+        <span className="text-sm text-violet-400 flex-shrink-0 mt-0.5">
           {format(value)}
         </span>
       </div>
@@ -107,14 +107,14 @@ export default function SettingsPanel({ settings, update }: Props) {
 
       {/* Format picker */}
       <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-        <span className="text-sm font-medium text-zinc-200">Output format</span>
+        <p className="text-base font-medium text-zinc-200">Output format</p>
         <div className="flex gap-1.5">
           {(["wav", "flac"] as const).map((f) => (
             <button
               key={f}
               type="button"
               onClick={() => update("outFormat", f)}
-              className={`font-mono text-xs tracking-wider px-3 py-1.5 rounded-lg border transition-all duration-200 ${
+              className={`text-sm font-semibold px-3 py-1.5 rounded-lg border transition-all duration-200 ${
                 settings.outFormat === f
                   ? "bg-violet-500/10 border-violet-500/40 text-violet-300"
                   : "border-white/[0.07] text-zinc-400 hover:border-white/20 hover:text-zinc-300"
@@ -127,8 +127,12 @@ export default function SettingsPanel({ settings, update }: Props) {
       </div>
 
       {/* Tip */}
-      <p className="text-sm text-zinc-500">
-        Tip: For best results, use lossless formats like WAV or FLAC as input.
+      <p className="text-sm font-medium text-zinc-500">
+        <span className="text-violet-400">Tip:</span> For best results, use
+        lossless formats like{" "}
+        <span className="bg-white/20 text-white/70 px-1 rounded">WAV</span> or
+        <span className="bg-white/20 text-white/70 px-1 rounded">FLAC</span> as
+        input.
       </p>
     </div>
   );

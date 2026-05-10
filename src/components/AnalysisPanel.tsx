@@ -8,8 +8,8 @@ interface Props {
 function StatRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between py-1.5 border-b border-white/[0.05] last:border-0">
-      <span className="font-mono text-[10px] text-zinc-500">{label}</span>
-      <span className="font-mono text-xs text-zinc-300">{value}</span>
+      <p className="text-base font-medium text-zinc-200">{label}</p>
+      <p className="text-xs font-semibold text-violet-500">{value}</p>
     </div>
   );
 }
@@ -18,12 +18,12 @@ function BarRow({ label, pct }: { label: string; pct: number }) {
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between">
-        <span className="font-mono text-[10px] text-zinc-500">{label}</span>
-        <span className="font-mono text-[10px] text-zinc-400">
+        <p className="text-base font-medium text-zinc-200">{label}</p>
+        <p className="text-xs font-semibold text-violet-500">
           {(pct * 100).toFixed(1)}%
-        </span>
+        </p>
       </div>
-      <div className="h-0.5 bg-zinc-800 rounded-full overflow-hidden">
+      <div className="h-1 bg-zinc-800 rounded-full overflow-hidden">
         <div
           className="h-full bg-violet-500 rounded-full transition-all duration-500"
           style={{ width: `${Math.min(pct * 100, 100)}%` }}

@@ -31,25 +31,25 @@ export default function App() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-xl">
         <div className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/25 flex items-center justify-center text-violet-400">
-              <AudioWaveform />
-            </div>
-            <span className="font-display text-[17px] font-bold tracking-tight">
-              NoiseOut
-            </span>
-            <span className="text-sm text-violet-400 bg-violet-500/10 border border-violet-500/20 px-1.5 rounded-md font-medium">
-              Studio
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Logo" className="w-12 h-12" />
+            <span className="font-display text-xl font-semibold tracking-tight">
+              FXR
             </span>
           </div>
           <a
-            className="flex items-center gap-1.5 font-mono text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="flex items-center gap-1"
             href="http://127.0.0.1:8000/api/health"
             target="_blank"
             rel="noreferrer"
           >
-            <span className="health-dot w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-            Backend
+            <span className="relative flex size-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex size-3 rounded-full bg-emerald-500"></span>
+            </span>
+            <h1 className="text-sm font-medium text-zinc-500 hover:text-zinc-300 ">
+              Backend
+            </h1>
           </a>
         </div>
       </header>
@@ -58,7 +58,7 @@ export default function App() {
       <main className="relative z-10 mx-auto max-w-5xl px-6 py-12">
         {/* Hero */}
         <div className="mb-10">
-          <h1 className="font-display text-5xl font-extrabold tracking-tight leading-[1.1]">
+          <h1 className="font-display text-5xl font-semibold tracking-tight leading-[1.1]">
             Remove noise.
             <br />
             <span className="text-gradient">Keep the voice.</span>
