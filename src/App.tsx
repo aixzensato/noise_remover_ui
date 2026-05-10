@@ -21,6 +21,9 @@ export default function App() {
     enhancedAudioRef,
   } = useAudioProcessor();
 
+  const apiBase = import.meta.env.VITE_API_BASE?.trim() || "http://127.0.0.1:8000";
+  const healthUrl = `${apiBase.replace(/\/+$/, "")}/api/health`;
+
   return (
     <div className="relative min-h-full bg-zinc-950 text-zinc-50">
       {/* Background grid */}
@@ -40,7 +43,7 @@ export default function App() {
           </div>
           <a
             className="flex items-center gap-1"
-            href="http://127.0.0.1:8000/api/health"
+            href={healthUrl}
             target="_blank"
             rel="noreferrer"
           >

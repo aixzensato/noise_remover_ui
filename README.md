@@ -11,6 +11,24 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+## Environment variables
+
+This app reads the backend API base URL from `VITE_API_BASE`.
+
+Create a `.env` file in the project root for local development, for example:
+
+```env
+VITE_API_BASE=http://127.0.0.1:8000
+```
+
+For production builds, set `VITE_API_BASE` to your hosted backend, for example:
+
+```env
+VITE_API_BASE=https://api.example.com
+```
+
+Vite will replace `import.meta.env.VITE_API_BASE` at build time, while the app falls back to `http://127.0.0.1:8000` when the variable is missing.
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:

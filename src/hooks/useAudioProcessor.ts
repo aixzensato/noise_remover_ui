@@ -129,7 +129,13 @@ export function useAudioProcessor() {
 
   const enhancedAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const apiBase = useMemo(() => "http://127.0.0.1:8000", []);
+  const apiBase = useMemo(() => {
+    const envApiBase = import.meta.env.VITE_API_BASE;
+    if (typeof envApiBase === "string" && envApiBase.trim()) {
+      return envApiBase.replace(/\/+$|\s+/g, "");
+    }
+    return "http://127.0.0.1:8000";
+  }, []);
 
   // Persist settings to localStorage whenever they change
   useEffect(() => {
