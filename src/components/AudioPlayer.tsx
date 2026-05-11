@@ -45,6 +45,63 @@ export default function AudioPlayer({
     }
   }
 
+  function ProcessingBorder() {
+    return (
+      <>
+        <style>{`
+        @keyframes conic-spin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes conic-spin-rev {
+          to { transform: rotate(-360deg); }
+        }
+        .proc-ring {
+          position: absolute; inset: -2px;
+          border-radius: 15px; pointer-events: none; overflow: hidden; z-index: 0;
+        }
+        .proc-ring::before {
+          content: '';
+          position: absolute; inset: -120%;
+          background: conic-gradient(
+            from 0deg,
+            transparent 0deg, #7c5cfc 50deg,
+            #a78bfa 80deg, #38bdf8 130deg,
+            transparent 180deg
+          );
+          animation: conic-spin 1.6s linear infinite;
+        }
+        .proc-ring::after {
+          content: '';
+          position: absolute; inset: 2px;
+          border-radius: 13px; background: #0c0c10;
+        }
+        .proc-ring-2 {
+          position: absolute; inset: -2px;
+          border-radius: 15px; pointer-events: none; overflow: hidden; z-index: 0;
+        }
+        .proc-ring-2::before {
+          content: '';
+          position: absolute; inset: -120%;
+          background: conic-gradient(
+            from 180deg,
+            transparent 0deg, #22d3a0 40deg,
+            #818cf8 100deg, transparent 150deg
+          );
+          animation: conic-spin-rev 2.2s linear infinite;
+          opacity: 0.45;
+        }
+        .proc-ring-2::after {
+          content: '';
+          position: absolute; inset: 2px;
+          border-radius: 13px; background: transparent;
+        }
+      `}</style>
+        <div className="proc-ring" />
+        <div className="proc-ring-2" />
+      </>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {/* File header */}
@@ -128,27 +185,31 @@ export default function AudioPlayer({
       )}
 
       {/* Enhance button */}
-      <button
-        disabled={busy}
-        onClick={onEnhance}
-        className={`w-full flex items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-semibold transition-all duration-200 ${
-          busy
-            ? "bg-zinc-800 text-zinc-400 border border-white/[0.06] cursor-not-allowed"
-            : "bg-violet-600 hover:bg-violet-500 text-white hover:-translate-y-px hover:shadow-[0_0_20px_rgba(124,92,252,0.35)]"
-        }`}
-      >
-        {busy ? (
-          <>
-            <LoaderCircle size={20} className="animate-spin" />
-            <h1 className="font-medium text-base">Processing audio…</h1>
-          </>
-        ) : (
-          <div className="flex items-center gap-2">
-            <Mic size={20} />
-            <h1 className="font-medium text-base">Enhance & Remove Noise</h1>
-          </div>
-        )}
-      </button>
+      <div className="relative">
+        {busy && <ProcessingBorder />}
+        <button
+          disabled={busy}
+          onClick={onEnhance}
+          className={[
+            "relative z-10 w-full flex items-center justify-center gap-2.5 rounded-[13px] px-4 py-4 text-sm font-semibold transition-all duration-200",
+            busy
+              ? "bg-zinc-900 text-zinc-400 cursor-not-allowed"
+              : "bg-violet-600 hover:bg-violet-500 text-white hover:-translate-y-px hover:shadow-[0_0_24px_rgba(124,92,252,0.4)]",
+          ].join(" ")}
+        >
+          {busy ? (
+            <>
+              <LoaderCircle size={17} className="animate-spin" />
+              Processing audio…
+            </>
+          ) : (
+            <>
+              <Mic size={17} />
+              Enhance & Remove Noise
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }
