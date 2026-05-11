@@ -117,7 +117,6 @@ async function deleteFileFromIndexedDB(): Promise<void> {
   });
 }
 
-
 export function useAudioProcessor() {
   const [file, setFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
@@ -134,7 +133,9 @@ export function useAudioProcessor() {
     if (typeof envApiBase === "string" && envApiBase.trim()) {
       return envApiBase.replace(/\/+$|\s+/g, "");
     }
-    return "http://127.0.0.1:8000";
+    return typeof window !== "undefined"
+      ? window.location.origin
+      : "http://127.0.0.1:8000";
   }, []);
 
   // Persist settings to localStorage whenever they change

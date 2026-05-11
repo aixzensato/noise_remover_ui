@@ -21,7 +21,8 @@ export default function App() {
     enhancedAudioRef,
   } = useAudioProcessor();
 
-  const apiBase = import.meta.env.VITE_API_BASE?.trim() || "http://127.0.0.1:8000";
+  const apiBase =
+    import.meta.env.VITE_API_BASE?.trim() || window.location.origin;
   const healthUrl = `${apiBase.replace(/\/+$/, "")}/api/health`;
 
   return (
@@ -101,7 +102,11 @@ export default function App() {
 
           {/* Side panels */}
           <div className="flex flex-col gap-4">
-            <SettingsPanel settings={settings} update={updateSetting} onReset={resetSettings} />
+            <SettingsPanel
+              settings={settings}
+              update={updateSetting}
+              onReset={resetSettings}
+            />
             <AnalysisPanel analysis={analysis} />
           </div>
         </div>
