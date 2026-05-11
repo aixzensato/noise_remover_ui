@@ -86,7 +86,7 @@ function useAudioBars(audioRef: RefObject<HTMLAudioElement | null>) {
 
 function MusicTrack({ bars, accent }: { bars: number[]; accent: string }) {
   return (
-    <div className="flex items-end gap-[2px] h-7 px-1">
+    <div className="flex items-center gap-[2px] h-7 px-1">
       {bars.map((v, i) => (
         <div
           key={i}
