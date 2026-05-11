@@ -20,7 +20,7 @@ export default function AudioUploader({ onFile }: Props) {
 
   return (
     <label
-      className={`flex flex-col items-center justify-center gap-3 border border-dashed rounded-xl p-14 text-center cursor-pointer transition-all duration-200 ${
+      className={`flex flex-col items-center justify-center gap-3 border border-dashed rounded-xl p-8 sm:p-10 lg:p-14 text-center cursor-pointer transition-all duration-200 ${
         dragging
           ? "border-violet-500 bg-violet-500/10"
           : "border-white/10 hover:border-violet-500/60 hover:bg-violet-500/5"
@@ -46,10 +46,10 @@ export default function AudioUploader({ onFile }: Props) {
       >
         <Music />
       </div>
-      <h1 className="text-lg font-medium text-zinc-200">
+      <h1 className="text-base sm:text-lg font-medium text-zinc-200">
         Drop your audio file here
       </h1>
-      <p className="text-sm font-medium text-zinc-500">
+      <p className="text-xs sm:text-sm font-medium text-zinc-500">
         WAV · FLAC · OGG · M4A · MP3 — or click to browse
       </p>
     </label>

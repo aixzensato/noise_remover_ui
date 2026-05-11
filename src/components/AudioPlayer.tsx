@@ -149,19 +149,19 @@ export default function AudioPlayer({
   return (
     <div className="space-y-4">
       {/* File header */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <TrafficCone size={23} className="text-orange-600" />
-          <span className="font-medium text-zinc-200 truncate">
+          <span className="font-medium text-zinc-200 truncate text-sm sm:text-base">
             {file.name}
           </span>
-          <span className="text-xs bg-white/20 px-1 rounded-md text-zinc-300">
+          <span className="text-[10px] sm:text-xs bg-white/20 px-1 rounded-md text-zinc-300 shrink-0">
             {(file.size / (1024 * 1024)).toFixed(2)} MB
           </span>
         </div>
         <button
           onClick={onClear}
-          className="flex items-center gap-1 text-xs bg-rose-500/10 text-zinc-400 border border-rose-500/50 rounded-lg px-2.5 py-1.5 hover:text-zinc-200 hover:bg-rose-500/20 transition-colors duration-300"
+          className="w-full sm:w-auto justify-center flex items-center gap-1 text-xs bg-rose-500/10 text-zinc-400 border border-rose-500/50 rounded-lg px-2.5 py-1.5 hover:text-zinc-200 hover:bg-rose-500/20 transition-colors duration-300"
         >
           <Trash2 size={16} />
           <h1 className="text-sm font-medium">Clear</h1>
@@ -169,15 +169,17 @@ export default function AudioPlayer({
       </div>
 
       {/* Players */}
-      <div className="grid grid-rows-2 gap-4">
+      <div className="grid grid-rows-2 gap-3 sm:gap-4">
         {/* Original */}
         <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <span className="w-3 h-3 animation-pulse rounded-full bg-blue-500" />
-            <span className="text-sm font-semibold uppercase text-zinc-500">
+            <span className="text-xs sm:text-sm font-semibold uppercase text-zinc-500 shrink-0">
               Original
             </span>
-            <MusicTrack bars={originalBars} accent="#60a5fa" />
+            <div className="hidden sm:block min-w-0">
+              <MusicTrack bars={originalBars} accent="#60a5fa" />
+            </div>
           </div>
           <audio
             ref={originalAudioRef}
@@ -190,7 +192,7 @@ export default function AudioPlayer({
 
         {/* Enhanced */}
         <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 flex-wrap">
             <span className="relative flex size-3">
               <span
                 className={`absolute inline-flex h-full w-full animate-ping rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-none"}`}
@@ -199,13 +201,15 @@ export default function AudioPlayer({
                 className={`relative inline-flex size-3 rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-zinc-600"}`}
               />
             </span>
-            <span className="text-sm font-semibold uppercase text-zinc-500">
+            <span className="text-xs sm:text-sm font-semibold uppercase text-zinc-500 shrink-0">
               Enhanced
             </span>
-            <MusicTrack bars={enhancedBars} accent="#34d399" />
+            <div className="hidden sm:block min-w-0">
+              <MusicTrack bars={enhancedBars} accent="#34d399" />
+            </div>
             {enhancedUrl && (
               <a
-                className="ml-auto flex items-center gap-1 text-sm text-violet-400 hover:text-violet-300 transition-colors"
+                className="ml-auto sm:ml-auto flex items-center gap-1 text-xs sm:text-sm text-violet-400 hover:text-violet-300 transition-colors"
                 href={enhancedUrl}
                 download={`${file.name.replace(/\.[^/.]+$/, "")}_denoised.${outFormat}`}
               >
@@ -227,7 +231,7 @@ export default function AudioPlayer({
       {/* Error */}
       {err && (
         <div className="flex items-start gap-2 bg-red-950/40 border border-red-900/30 rounded-xl px-3.5 py-3 text-sm text-red-300">
-          <OctagonAlert size={20} />
+          <OctagonAlert size={18} className="shrink-0 mt-0.5" />
           {err}
         </div>
       )}
@@ -239,7 +243,7 @@ export default function AudioPlayer({
           disabled={busy}
           onClick={onEnhance}
           className={[
-            "relative z-10 w-full flex items-center justify-center gap-2 rounded-[13px] px-4 py-4 text-base font-semibold transition-all duration-200",
+            "relative z-10 w-full flex items-center justify-center gap-2 rounded-[13px] px-4 py-3.5 sm:py-4 text-sm sm:text-base font-semibold transition-all duration-200",
             busy
               ? "bg-zinc-900 text-zinc-400 cursor-not-allowed"
               : "bg-violet-600/30 hover:bg-violet-500/10 transition-colors duration-300 border border-violet-500/50 text-white hover:shadow-[0_0_24px_rgba(124,92,252,0.4)]",

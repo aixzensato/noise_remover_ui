@@ -31,7 +31,7 @@ export default function App() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-xl">
-        <div className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Logo" className="w-9 h-9" />
             <span className="font-display text-xl font-semibold tracking-tight">
@@ -42,24 +42,24 @@ export default function App() {
       </header>
 
       {/* Main */}
-      <main className="relative z-10 mx-auto max-w-5xl px-6 py-12">
+      <main className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10 lg:py-12">
         {/* Hero */}
-        <div className="mb-10">
-          <h1 className="font-display text-5xl font-semibold tracking-tight leading-[1.1]">
+        <div className="mb-8 sm:mb-10">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1]">
             Remove noise.
             <br />
             <span className="text-gradient">Keep the voice.</span>
           </h1>
-          <p className="mt-3 font-medium text-lg text-zinc-500">
+          <p className="mt-3 font-medium text-sm sm:text-base lg:text-lg text-zinc-500 max-w-2xl">
             Spectral subtraction engine — no ML required. Upload, tune,
             download.
           </p>
         </div>
 
         {/* Layout */}
-        <div className="grid grid-cols-[1fr_300px] gap-4 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px] gap-4 lg:gap-5 items-start">
           {/* Main panel */}
-          <div className="bg-zinc-900/50 border border-white/[0.06] rounded-2xl p-6">
+          <div className="bg-zinc-900/50 border border-white/[0.06] rounded-2xl p-4 sm:p-5 lg:p-6">
             <div className="flex gap-1 items-center text-zinc-500 mb-5">
               <Music2 size={20} />
               <h1 className="font-medium text-lg">Audio</h1>
