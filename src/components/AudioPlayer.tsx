@@ -151,7 +151,7 @@ export default function AudioPlayer({
       {/* File header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          <TrafficCone size={20} className="text-orange-600" />
+          <TrafficCone size={23} className="text-orange-600" />
           <span className="font-medium text-zinc-200 truncate">
             {file.name}
           </span>
