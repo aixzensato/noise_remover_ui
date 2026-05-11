@@ -21,10 +21,6 @@ export default function App() {
     enhancedAudioRef,
   } = useAudioProcessor();
 
-  const apiBase =
-    import.meta.env.VITE_API_BASE?.trim() || window.location.origin;
-  const healthUrl = `${apiBase.replace(/\/+$/, "")}/api/health`;
-
   return (
     <div className="relative min-h-full bg-zinc-950 text-zinc-50">
       {/* Background grid */}
@@ -37,25 +33,11 @@ export default function App() {
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-xl">
         <div className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Logo" className="w-12 h-12" />
+            <img src="/logo.png" alt="Logo" className="w-9 h-9" />
             <span className="font-display text-xl font-semibold tracking-tight">
               FXR
             </span>
           </div>
-          <a
-            className="flex items-center gap-1"
-            href={healthUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-emerald-500"></span>
-            </span>
-            <h1 className="text-sm font-medium text-zinc-500 hover:text-zinc-300 ">
-              Backend
-            </h1>
-          </a>
         </div>
       </header>
 
