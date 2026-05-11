@@ -28,8 +28,8 @@ function Slider({
     <div className="space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-base font-medium text-zinc-200">{label}</p>
-          <p className="text-sm font-medium text-zinc-500">{hint}</p>
+          <h1 className="text-lg font-medium text-zinc-200">{label}</h1>
+          <p className="font-medium text-zinc-500">{hint}</p>
         </div>
         <span className="text-sm text-violet-400 flex-shrink-0 mt-0.5">
           {format(value)}
@@ -119,7 +119,7 @@ export default function SettingsPanel({ settings, update, onReset }: Props) {
 
       {/* Format picker */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-4 border-t border-white/[0.06]">
-        <p className="text-base font-medium text-zinc-200">Output format</p>
+        <h1 className="text-lg font-medium text-zinc-200">Output format</h1>
         <div className="flex gap-1.5 self-start sm:self-auto">
           {(["wav", "flac"] as const).map((f) => (
             <button
@@ -139,7 +139,7 @@ export default function SettingsPanel({ settings, update, onReset }: Props) {
       </div>
 
       {/* Tip */}
-      <p className="text-sm font-medium text-zinc-500">
+      <p className="font-medium text-zinc-500">
         <span className="text-violet-400">Tip:</span> For best results, use
         lossless formats like{" "}
         <span className="bg-white/20 text-white/70 px-1 rounded">WAV</span> or

@@ -86,15 +86,15 @@ function useAudioBars(audioRef: RefObject<HTMLAudioElement | null>) {
 
 function MusicTrack({ bars, accent }: { bars: number[]; accent: string }) {
   return (
-    <div className="flex items-center gap-[2px] h-7 px-1">
+    <div className="flex items-center gap-1 h-7 px-1">
       {bars.map((v, i) => (
         <div
           key={i}
-          className="w-[2px] rounded-full"
+          className="w-[2.5px] rounded-full"
           style={{
-            height: `${Math.max(3, v * 28)}px`,
+            height: `${Math.max(3, v * 32)}px`,
             background: v > 0.05 ? accent : "#3f3f46",
-            transition: "height 60ms linear",
+            transition: "height 120ms linear",
           }}
         />
       ))}
@@ -132,16 +132,11 @@ export default function AudioPlayer({
       <>
         <style>{`
         @keyframes conic-spin { to { transform: rotate(360deg); } }
-        @keyframes conic-spin-rev { to { transform: rotate(-360deg); } }
         .proc-ring { position:absolute;inset:-2px;border-radius:15px;pointer-events:none;overflow:hidden;z-index:0; }
         .proc-ring::before { content:'';position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0deg,#7c5cfc 50deg,#a78bfa 80deg,#38bdf8 130deg,transparent 180deg);animation:conic-spin 1.6s linear infinite; }
         .proc-ring::after { content:'';position:absolute;inset:2px;border-radius:13px;background:#0c0c10; }
-        .proc-ring-2 { position:absolute;inset:-2px;border-radius:15px;pointer-events:none;overflow:hidden;z-index:0; }
-        .proc-ring-2::before { content:'';position:absolute;inset:-120%;background:conic-gradient(from 180deg,transparent 0deg,#22d3a0 40deg,#818cf8 100deg,transparent 150deg);animation:conic-spin-rev 2.2s linear infinite;opacity:0.45; }
-        .proc-ring-2::after { content:'';position:absolute;inset:2px;border-radius:13px;background:transparent; }
       `}</style>
         <div className="proc-ring" />
-        <div className="proc-ring-2" />
       </>
     );
   }
@@ -152,9 +147,9 @@ export default function AudioPlayer({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <TrafficCone size={23} className="text-orange-600" />
-          <span className="font-medium text-zinc-200 truncate text-sm sm:text-base">
+          <h1 className="font-medium text-zinc-200 truncate text-lg">
             {file.name}
-          </span>
+          </h1>
           <span className="text-[10px] sm:text-xs bg-white/20 px-1 rounded-md text-zinc-300 shrink-0">
             {(file.size / (1024 * 1024)).toFixed(2)} MB
           </span>
@@ -171,7 +166,7 @@ export default function AudioPlayer({
       {/* Players */}
       <div className="grid grid-rows-2 gap-3 sm:gap-4">
         {/* Original */}
-        <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
+        <div className="bg-zinc-950/60 border border-blue-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-3 h-3 animation-pulse rounded-full bg-blue-500" />
             <span className="text-xs sm:text-sm font-semibold uppercase text-zinc-500 shrink-0">
@@ -191,7 +186,7 @@ export default function AudioPlayer({
         </div>
 
         {/* Enhanced */}
-        <div className="bg-zinc-950/60 border border-white/[0.06] rounded-xl p-3 space-y-2">
+        <div className="bg-zinc-950/60 border border-emerald-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0 flex-wrap">
             <span className="relative flex size-3">
               <span
@@ -220,7 +215,7 @@ export default function AudioPlayer({
           </div>
           <audio
             ref={enhancedAudioRef}
-            className="w-full h-8"
+            className="w-full h-9"
             controls
             src={enhancedUrl ?? undefined}
             onPlay={() => pauseOtherAudio("enhanced")}
@@ -245,7 +240,7 @@ export default function AudioPlayer({
           className={[
             "relative z-10 w-full flex items-center justify-center gap-2 rounded-[13px] px-4 py-3.5 sm:py-4 text-sm sm:text-base font-semibold transition-all duration-200",
             busy
-              ? "bg-zinc-900 text-zinc-400 cursor-not-allowed"
+              ? "bg-zinc-900/0 text-zinc-400 cursor-not-allowed"
               : "bg-violet-600/30 hover:bg-violet-500/10 transition-colors duration-300 border border-violet-500/50 text-white hover:shadow-[0_0_24px_rgba(124,92,252,0.4)]",
           ].join(" ")}
         >
