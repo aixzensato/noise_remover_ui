@@ -46,9 +46,9 @@ export default function AudioUploader({ onFile }: Props) {
       >
         <Music />
       </div>
-      <p className="text-lg font-semibold text-zinc-200">
+      <h1 className="text-lg font-medium text-zinc-200">
         Drop your audio file here
-      </p>
+      </h1>
       <p className="text-sm font-medium text-zinc-500">
         WAV · FLAC · OGG · M4A · MP3 — or click to browse
       </p>

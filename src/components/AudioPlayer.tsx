@@ -239,10 +239,10 @@ export default function AudioPlayer({
           disabled={busy}
           onClick={onEnhance}
           className={[
-            "relative z-10 w-full flex items-center justify-center gap-2.5 rounded-[13px] px-4 py-4 text-sm font-semibold transition-all duration-200",
+            "relative z-10 w-full flex items-center justify-center gap-2 rounded-[13px] px-4 py-4 text-base font-semibold transition-all duration-200",
             busy
               ? "bg-zinc-900 text-zinc-400 cursor-not-allowed"
-              : "bg-violet-600 hover:bg-violet-500 text-white hover:-translate-y-px hover:shadow-[0_0_24px_rgba(124,92,252,0.4)]",
+              : "bg-violet-600/30 hover:bg-violet-500/10 transition-colors duration-300 border border-violet-500/50 text-white hover:shadow-[0_0_24px_rgba(124,92,252,0.4)]",
           ].join(" ")}
         >
           {busy ? (
