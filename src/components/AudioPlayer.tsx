@@ -168,8 +168,7 @@ export default function AudioPlayer({
         {/* Original */}
         <div className="bg-zinc-950/60 border border-blue-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="w-3 h-3 animation-pulse rounded-full bg-blue-500" />
-            <span className="text-xs sm:text-sm font-semibold uppercase text-zinc-500 shrink-0">
+            <span className="text-xs sm:text-sm font-semibold uppercase text-blue-400 shrink-0">
               Original
             </span>
             <div className="hidden sm:block min-w-0">
@@ -188,15 +187,7 @@ export default function AudioPlayer({
         {/* Enhanced */}
         <div className="bg-zinc-950/60 border border-emerald-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0 flex-wrap">
-            <span className="relative flex size-3">
-              <span
-                className={`absolute inline-flex h-full w-full animate-ping rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-none"}`}
-              />
-              <span
-                className={`relative inline-flex size-3 rounded-full ${enhancedUrl ? "bg-emerald-400" : "bg-zinc-600"}`}
-              />
-            </span>
-            <span className="text-xs sm:text-sm font-semibold uppercase text-zinc-500 shrink-0">
+            <span className={`text-xs sm:text-sm font-semibold uppercase ${enhancedUrl ? "text-emerald-400" : "text-zinc-500"}`}>
               Enhanced
             </span>
             <div className="hidden sm:block min-w-0">
