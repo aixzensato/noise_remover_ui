@@ -35,7 +35,7 @@ function useAudioBars(audioRef: RefObject<HTMLAudioElement | null>) {
   const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
   const rafRef = useRef<number>(0);
 
-  const tick = useCallback(() => {
+  const tick = useCallback(function tick() {
     const analyser = analyserRef.current;
     if (!analyser) return;
     const data = new Uint8Array(analyser.frequencyBinCount);
@@ -102,6 +102,20 @@ function MusicTrack({ bars, accent }: { bars: number[]; accent: string }) {
   );
 }
 
+function ProcessingBorder() {
+  return (
+    <>
+      <style>{`
+        @keyframes conic-spin { to { transform: rotate(360deg); } }
+        .proc-ring { position:absolute;inset:-2px;border-radius:15px;pointer-events:none;overflow:hidden;z-index:0; }
+        .proc-ring::before { content:'';position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0deg,#7c5cfc 50deg,#a78bfa 80deg,#38bdf8 130deg,transparent 180deg);animation:conic-spin 1.6s linear infinite; }
+        .proc-ring::after { content:'';position:absolute;inset:2px;border-radius:13px;background:#0c0c10; }
+      `}</style>
+      <div className="proc-ring" />
+    </>
+  );
+}
+
 export default function AudioPlayer({
   file,
   originalUrl,
@@ -125,20 +139,6 @@ export default function AudioPlayer({
       if (originalAudioRef.current && !originalAudioRef.current.paused)
         originalAudioRef.current.pause();
     }
-  }
-
-  function ProcessingBorder() {
-    return (
-      <>
-        <style>{`
-        @keyframes conic-spin { to { transform: rotate(360deg); } }
-        .proc-ring { position:absolute;inset:-2px;border-radius:15px;pointer-events:none;overflow:hidden;z-index:0; }
-        .proc-ring::before { content:'';position:absolute;inset:-120%;background:conic-gradient(from 0deg,transparent 0deg,#7c5cfc 50deg,#a78bfa 80deg,#38bdf8 130deg,transparent 180deg);animation:conic-spin 1.6s linear infinite; }
-        .proc-ring::after { content:'';position:absolute;inset:2px;border-radius:13px;background:#0c0c10; }
-      `}</style>
-        <div className="proc-ring" />
-      </>
-    );
   }
 
   return (
