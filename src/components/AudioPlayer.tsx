@@ -86,11 +86,11 @@ function useAudioBars(audioRef: RefObject<HTMLAudioElement | null>) {
 
 function MusicTrack({ bars, accent }: { bars: number[]; accent: string }) {
   return (
-    <div className="flex items-center gap-1 h-7 px-1">
+    <div className="flex items-end gap-1 h-7 px-1">
       {bars.map((v, i) => (
         <div
           key={i}
-          className="w-[2.5px] rounded-full"
+          className="w-0.5 rounded-full"
           style={{
             height: `${Math.max(3, v * 32)}px`,
             background: v > 0.05 ? accent : "#3f3f46",
@@ -168,9 +168,9 @@ export default function AudioPlayer({
         {/* Original */}
         <div className="bg-zinc-950/60 border border-blue-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-xs sm:text-sm font-semibold uppercase text-blue-400 shrink-0">
+            <h1 className="text-xs sm:text-base font-semibold uppercase text-blue-400 shrink-0">
               Original
-            </span>
+            </h1>
             <div className="hidden sm:block min-w-0">
               <MusicTrack bars={originalBars} accent="#60a5fa" />
             </div>
@@ -187,9 +187,11 @@ export default function AudioPlayer({
         {/* Enhanced */}
         <div className="bg-zinc-950/60 border border-emerald-500/50 rounded-2xl p-3 space-y-2">
           <div className="flex items-center gap-2 min-w-0 flex-wrap">
-            <span className={`text-xs sm:text-sm font-semibold uppercase ${enhancedUrl ? "text-emerald-400" : "text-zinc-500"}`}>
+            <h1
+              className={`text-xs sm:text-base font-semibold uppercase ${enhancedUrl ? "text-emerald-400" : "text-zinc-500"}`}
+            >
               Enhanced
-            </span>
+            </h1>
             <div className="hidden sm:block min-w-0">
               <MusicTrack bars={enhancedBars} accent="#34d399" />
             </div>
