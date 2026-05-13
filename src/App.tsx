@@ -49,8 +49,8 @@ export default function App() {
             <span className="text-gradient">Keep the voice.</span>
           </h1>
           <p className="mt-3 font-medium text-sm sm:text-base lg:text-lg text-zinc-500 max-w-2xl">
-            Spectral subtraction engine — no ML required. Upload, tune,
-            download.
+            Upload your audio and let FXR do the rest. Perfect for cleaning up
+            podcasts, interviews, voiceovers, and more.
           </p>
         </div>
 
